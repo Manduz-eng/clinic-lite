@@ -1,0 +1,116 @@
+@media print {
+  /* Hide navigation and non-essential UI */
+  .print\\:hidden,
+  aside,
+  header,
+  nav,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset background and shadows */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  /* Reset margins for full-page use */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove card shadows and borders for clean printing */
+  .bg-white,
+  [class*="shadow"],
+  [class*="rounded"] {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Optimize tables for printing */
+  table {
+    width: 100% !important;
+    border-collapse: collapse;
+    font-size: 10pt;
+  }
+
+  th, td {
+    border: 1px solid #333;
+    padding: 4px 8px;
+  }
+
+  th {
+    background-color: #f0f0f0 !important;
+    font-weight: bold;
+  }
+
+  /* Badge colors for B&W printers */
+  [class*="bg-green"] {
+    background-color: #e6e6e6 !important;
+    color: black !important;
+  }
+
+  [class*="bg-yellow"] {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+  }
+
+  [class*="bg-red"] {
+    background-color: #d0d0d0 !important;
+    color: black !important;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  /* Ensure tables don't break across pages */
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* Receipt format - 80mm width for thermal/receipt printers */
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  /* Header for printed documents */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+  }
+
+  .print-header h1 {
+    font-size: 18pt;
+    margin: 0;
+  }
+
+  .print-header p {
+    font-size: 10pt;
+    margin: 4px 0 0;
+  }
+
+  /* Footer */
+  .print-footer {
+    display: block !important;
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #666;
+    font-size: 8pt;
+    color: #666;
+  }
+}
