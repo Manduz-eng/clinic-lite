@@ -39,7 +39,10 @@ export default function ReceptionPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.post('/patients', form);
+      const payload = Object.fromEntries(
+        Object.entries(form).filter(([, v]) => v !== '')
+      );
+      await api.post('/patients', payload);
       setShowRegister(false);
       setForm({ firstName: '', lastName: '', dateOfBirth: '', gender: 'male', phone: '', nationalId: '', email: '', address: '', emergencyContactName: '', emergencyContactPhone: '', bloodGroup: '', allergies: '', insuranceProvider: '', insuranceNo: '' });
       loadPatients();
