@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "apps/api/dist/index.js": {
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/health",
+      "destination": "https://clinic-lite-api-vercel.vercel.app/api/health"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://clinic-lite-api-vercel.vercel.app/api/:path*"
+    }
+  ]
+}
