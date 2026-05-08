@@ -2,14 +2,12 @@
   "version": 2,
   "buildCommand": "prisma generate && npm run build",
   "outputDirectory": "dist",
-  "runtime": "nodejs20.x",
   "builds": [
     {
       "src": "dist/index.js",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb",
-        "nodeVersion": "20.x"
+        "maxLambdaSize": "50mb"
       }
     }
   ],
