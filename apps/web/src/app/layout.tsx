@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
 export const metadata: Metadata = {
-  title: "Clinic-Lite HMIS",
-  description: "Modular Health Management Information System",
+  title: "ClinicOS | Modern HMIS",
+  description: "Next-generation Hospital Management Information System",
 };
 
 export default function RootLayout({
@@ -19,8 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} font-sans antialiased bg-gray-50`}>
+    <html lang="en" className="dark">
+      <body className="font-sans antialiased">
         {children}
       </body>
     </html>

@@ -14,5 +14,7 @@ router.post('/', requirePermission('reception', 'create'), validate(createPatien
 router.get('/', requirePermission('reception', 'read'), controller.findAll);
 router.get('/:id', requirePermission('reception', 'read'), controller.findById);
 router.put('/:id', requirePermission('reception', 'update'), validate(updatePatientSchema), controller.update);
+router.delete('/:id', requirePermission('reception', 'delete'), controller.delete);
+router.put('/:id/status', requirePermission('reception', 'update'), controller.updateStatus);
 
 export { router as patientRoutes };

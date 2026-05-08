@@ -1,24 +1,46 @@
 'use client';
 
+import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-  title?: string;
-  action?: React.ReactNode;
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  hover?: boolean;
 }
 
-export function Card({ children, className, title, action }: CardProps) {
+export function Card({ className, hover = true, ...props }: CardProps) {
   return (
-    <div className={cn('bg-white rounded-xl border border-gray-200 shadow-sm', className)}>
-      {(title || action) && (
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          {title && <h3 className="text-lg font-semibold text-gray-900">{title}</h3>}
-          {action}
-        </div>
+    <div
+      className={cn(
+        'bg-card/60 backdrop-blur-xl border border-card-border rounded-2xl p-6 transition-all duration-300',
+        hover && 'hover:border-white/20 hover:shadow-primary/5',
+        className
       )}
-      <div className="p-6">{children}</div>
-    </div>
+      {...props}
+    />
   );
+}
+
+export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('flex flex-col space-y-1.5 pb-4', className)} {...props} />;
+}
+
+export function CardTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h3
+      className={cn('text-lg font-bold leading-none tracking-tight text-foreground font-display', className)}
+      {...props}
+    />
+  );
+}
+
+export function CardDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return <div className={cn('text-sm text-muted-foreground', className)} {...props} />;
+}
+
+export function CardContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('', className)} {...props} />;
+}
+
+export function CardFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('flex items-center pt-4', className)} {...props} />;
 }

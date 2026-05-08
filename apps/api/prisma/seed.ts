@@ -1,5 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const prisma = new PrismaClient();
 
@@ -77,20 +80,25 @@ async function main() {
   console.log('Seeding database...');
 
   // Create permissions
-  const permissions = [];
   for (const module of MODULES) {
     for (const action of ACTIONS) {
-      permissions.push({ module, action, description: `${action} ${module}` });
+      await prisma.permission.upsert({
+        where: { module_action: { module, action } },
+        update: {},
+        create: { module, action, description: `${action} ${module}` },
+      });
     }
   }
-  await prisma.permission.createMany({ data: permissions, skipDuplicates: true });
   const allPermissions = await prisma.permission.findMany();
   console.log(`Created ${allPermissions.length} permissions`);
 
   // Create demo tenant
   const tenant = await prisma.tenant.upsert({
     where: { slug: 'demo-clinic' },
-    update: {},
+    update: {
+      name: 'Demo Clinic',
+      isActive: true,
+    },
     create: {
       name: 'Demo Clinic',
       slug: 'demo-clinic',
@@ -134,7 +142,10 @@ async function main() {
     const passwordHash = await bcrypt.hash('admin123', 12);
     await prisma.user.upsert({
       where: { tenantId_email: { tenantId: tenant.id, email: 'admin@democlinic.co.ke' } },
-      update: {},
+      update: {
+        passwordHash,
+        isActive: true,
+      },
       create: {
         tenantId: tenant.id,
         roleId: adminRole.id,
@@ -157,7 +168,10 @@ async function main() {
     const passwordHash = await bcrypt.hash('doctor123', 12);
     await prisma.user.upsert({
       where: { tenantId_email: { tenantId: tenant.id, email: 'doctor@democlinic.co.ke' } },
-      update: {},
+      update: {
+        passwordHash,
+        isActive: true,
+      },
       create: {
         tenantId: tenant.id,
         roleId: doctorRole.id,

@@ -1,58 +1,62 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
+  title: string;
   children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
-  const handleEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') onClose();
-  }, [onClose]);
-
+export function Modal({ isOpen, onClose, title, children, className }: ModalProps) {
   useEffect(() => {
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [handleEscape]);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const sizes = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
-  };
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-background/80 backdrop-blur-md animate-in fade-in duration-300"
+        onClick={onClose}
+      />
+      
+      {/* Modal Content */}
+      <div className={cn(
+        "relative w-full max-w-2xl bg-card border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300",
+        className
+      )}>
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-white/5">
+          <h3 className="text-xl font-bold font-display tracking-tight text-foreground">{title}</h3>
+          <button 
+            onClick={onClose}
+            className="p-2 rounded-xl hover:bg-white/5 text-muted-foreground hover:text-foreground transition-all"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex min-h-full items-center justify-center p-4">
-        <div className="fixed inset-0 bg-black/50 transition-opacity" onClick={onClose} />
-        <div
-          className={cn(
-            'relative w-full bg-white rounded-xl shadow-xl transform transition-all',
-            sizes[size]
-          )}
-        >
-          {title && (
-            <div className="flex items-center justify-between px-6 py-4 border-b">
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-              <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          )}
-          <div className="p-6">{children}</div>
+        {/* Body */}
+        <div className="p-6">
+          {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -44,4 +44,25 @@ export class PatientController {
       next(error);
     }
   }
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { tenantId } = (req as AuthenticatedRequest).user;
+      await service.delete(tenantId, req.params.id);
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateStatus(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { tenantId } = (req as AuthenticatedRequest).user;
+      const { isActive } = req.body;
+      const patient = await service.updateStatus(tenantId, req.params.id, isActive);
+      res.json(patient);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
