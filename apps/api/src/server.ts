@@ -21,7 +21,18 @@ import { accountsRoutes } from './modules/accounts/accounts.routes';
 export const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
+
+// Hardcoded safe origins ensuring both local development and Vercel production work flawlessly
+app.use(cors({ 
+  origin: [
+    'http://localhost:3000', 
+    'https://clinic-lite.vercel.app'
+  ], 
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
