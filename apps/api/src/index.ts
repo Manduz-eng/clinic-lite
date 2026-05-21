@@ -1,10 +1,10 @@
-import express from 'express';
 import cors from 'cors';
-import { createServer } from 'http';
-import appRouter from './routes';
+import { app } from './server';
+import { env } from './config/env';
 
-const app = express();
+const PORT = env.PORT;
 
+// Apply CORS directly to the app instance imported from server.ts
 app.use(cors({
   origin: [
     'http://localhost:3000', 
@@ -15,9 +15,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.use(express.json());
-app.use('/api', appRouter);
-
-const httpServer = createServer(app);
-
-export default httpServer;
+app.listen(PORT, () => {
+  console.log(`Clinic-Lite API running on port ${PORT}`);
+  console.log(`Environment: ${env.NODE_ENV}`);
+});
