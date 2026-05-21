@@ -1,9 +1,23 @@
-import { app } from './server';
-import { env } from './config/env';
+import express from 'express';
+import cors from 'cors';
+import { createServer } from 'http';
+import appRouter from './routes';
 
-const PORT = env.PORT;
+const app = express();
 
-app.listen(PORT, () => {
-  console.log(`Clinic-Lite API running on port ${PORT}`);
-  console.log(`Environment: ${env.NODE_ENV}`);
-});
+app.use(cors({
+  origin: [
+    'http://localhost:3000', 
+    'https://clinic-lite.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(express.json());
+app.use('/api', appRouter);
+
+const httpServer = createServer(app);
+
+export default httpServer;
