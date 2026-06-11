@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/api/health",
+      "destination": "https://clinic-lite-api-vercel.vercel.app/api/health"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://clinic-lite-api-vercel.vercel.app/api/:path*"
+    }
+  ]
+}

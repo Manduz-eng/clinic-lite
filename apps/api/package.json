@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "prisma generate && tsc && tsc-alias",
+    "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
     "lint": "eslint src/ --ext .ts",
     "db:generate": "prisma generate",
@@ -46,6 +46,6 @@
     "seed": "npx tsx prisma/seed.ts"
   },
   "engines": {
-    "node": "18.x || 20.x"
+    "node": ">=18"
   }
 }

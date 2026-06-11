@@ -17,6 +17,9 @@
     "turbo": "^2.1.0"
   },
   "packageManager": "npm@10.2.0",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "pg": "^8.20.0"
   }
