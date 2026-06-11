@@ -63,13 +63,19 @@ export const useAuthStore = create<AuthState>((set) => ({
     const token = localStorage.getItem('accessToken');
     if (token) {
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        set({
-          user: { id: payload.userId, email: payload.email, firstName: '', lastName: '', role: payload.roleName },
-          tenant: { id: payload.tenantId, name: '', slug: '' },
-          isAuthenticated: true,
-          isLoading: false,
-        });
+        const parts = token.split('.');
+        if (parts.length >= 2) {
+          const base64Payload = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+          const payload = JSON.parse(atob(base64Payload));
+          set({
+            user: { id: payload.userId, email: payload.email, firstName: '', lastName: '', role: payload.roleName },
+            tenant: { id: payload.tenantId, name: '', slug: '' },
+            isAuthenticated: true,
+            isLoading: false,
+          });
+        } else {
+          set({ isLoading: false });
+        }
       } catch {
         set({ isLoading: false });
       }
