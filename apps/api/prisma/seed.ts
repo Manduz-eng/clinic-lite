@@ -105,6 +105,7 @@ async function main() {
       address: '123 Health Street, Nairobi',
       phone: '+254700000000',
       email: 'admin@democlinic.co.ke',
+      isActive: true,
     },
   });
   console.log(`Tenant: ${tenant.name} (${tenant.slug})`);
@@ -155,6 +156,7 @@ async function main() {
         lastName: 'Admin',
         phone: '+254700000000',
         employeeNo: 'EMP-001',
+        isActive: true,
       },
     });
     console.log('Created admin user: admin@democlinic.co.ke / admin123');
@@ -181,6 +183,7 @@ async function main() {
         lastName: 'Mwangi',
         phone: '+254711111111',
         employeeNo: 'EMP-002',
+        isActive: true,
       },
     });
     console.log('Created doctor: doctor@democlinic.co.ke / doctor123');
