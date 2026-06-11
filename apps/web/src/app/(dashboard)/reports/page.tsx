@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { 
   FileText, 
   TrendingUp, 
@@ -167,7 +168,7 @@ export default function ReportsPage() {
                Back to Menu
              </Button>
            )}
-           <Badge variant="primary" className="h-9 px-4 text-[10px] font-black tracking-widest uppercase bg-primary/20 text-primary border-primary/20">
+           <Badge variant="default" className="h-9 px-4 text-[10px] font-black tracking-widest uppercase bg-primary/20 text-primary border-primary/20">
              Audit-Ready Framework
            </Badge>
         </div>

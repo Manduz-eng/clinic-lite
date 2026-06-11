@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Settings, Shield, Bell, Database, Globe, UserCog } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function ConfigurationPage() {
   return (
@@ -15,7 +16,7 @@ export default function ConfigurationPage() {
           </div>
           <h1 className="text-xl font-black text-foreground font-display tracking-tight uppercase">System Configuration</h1>
         </div>
-        <Badge variant="primary" className="h-9 px-4 text-[10px] font-black tracking-widest uppercase">Master Control</Badge>
+        <Badge variant="default" className="h-9 px-4 text-[10px] font-black tracking-widest uppercase">Master Control</Badge>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

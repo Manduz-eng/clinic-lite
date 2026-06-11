@@ -30,7 +30,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               'w-full bg-background/50 border border-border rounded-xl px-4 py-2.5 outline-none transition-all',
               'focus:ring-2 focus:ring-primary/20 focus:border-primary',
               'placeholder:text-muted-foreground/50 text-sm',
-              icon && 'pl-11',
+              !!icon && 'pl-11',
               error && 'border-destructive focus:ring-destructive/20 focus:border-destructive',
               className
             )}

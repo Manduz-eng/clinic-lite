@@ -314,7 +314,7 @@ export default function ReceptionPage() {
             <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center justify-between">
               <span>REGISTRY DATA RECALL</span>
               <div className="flex items-center gap-2">
-                <Badge variant="primary" className="h-4 px-2 text-[9px] font-black">{patients.length} RECORDS FOUND</Badge>
+                <Badge variant="default" className="h-4 px-2 text-[9px] font-black">{patients.length} RECORDS FOUND</Badge>
               </div>
             </CardTitle>
           </CardHeader>
@@ -393,7 +393,14 @@ export default function ReceptionPage() {
   );
 }
 
-function Field({ label, value, onChange, placeholder }: any) {
+interface FieldProps {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+}
+
+function Field({ label, value, onChange, placeholder }: FieldProps) {
   return (
     <div className="space-y-0.5">
       <label className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground ml-1">{label}</label>
@@ -402,7 +409,14 @@ function Field({ label, value, onChange, placeholder }: any) {
   );
 }
 
-function SelectField({ label, value, onChange, options }: any) {
+interface SelectFieldProps {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+}
+
+function SelectField({ label, value, onChange, options }: SelectFieldProps) {
   return (
     <div className="space-y-0.5">
       <label className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground ml-1">{label}</label>
@@ -414,7 +428,15 @@ function SelectField({ label, value, onChange, options }: any) {
   );
 }
 
-function DynamicSelect({ label, value, onChange, options, onAdd }: any) {
+interface DynamicSelectProps {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+  onAdd: (v: string) => void;
+}
+
+function DynamicSelect({ label, value, onChange, options, onAdd }: DynamicSelectProps) {
   return (
     <div className="space-y-0.5">
       <label className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground ml-1 flex justify-between items-center">

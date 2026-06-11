@@ -43,8 +43,8 @@ export default function NursingPage() {
                   <tr key={v.id} className="hover:bg-gray-50">
                     <td className="py-3">{v.queueNumber}</td>
                     <td className="py-3 font-medium">{v.patient?.firstName} {v.patient?.lastName}</td>
-                    <td className="py-3"><Badge status={v.priority} /></td>
-                    <td className="py-3"><Badge status={v.status} /></td>
+                    <td className="py-3"><Badge variant={v.priority === 'urgent' || v.priority === 'emergency' ? 'destructive' : 'outline'}>{v.priority}</Badge></td>
+                    <td className="py-3"><Badge variant="warning">{v.status}</Badge></td>
                     <td className="py-3">
                       <Button size="sm" onClick={() => advanceToDoctor(v.id)}>Send to Doctor</Button>
                     </td>

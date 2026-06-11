@@ -122,7 +122,7 @@ export default function AccountsPage() {
             <CardTitle className="flex items-center gap-2">
               <TrendingDown className="w-5 h-5 text-destructive" /> Expense Log
             </CardTitle>
-            <Button size="sm" variant="destructive" className="gap-2 font-bold">
+            <Button size="sm" variant="danger" className="gap-2 font-bold">
               Record New Expense
             </Button>
           </CardHeader>
